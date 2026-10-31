@@ -1,24 +1,12 @@
 {
-  "name": "exame-de-consciencia-github",
+  "name": "confiteri",
   "version": "1.0.0",
-  "description": "O **Confiteri** é uma aplicação web gratuita e interativa criada para auxiliar na preparação pessoal ao **Sacramento da Reconciliação (Confissão)**.",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rickjordan20/confiteri.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/rickjordan20/confiteri/issues"
-  },
-  "homepage": "https://github.com/rickjordan20/confiteri#readme",
   "dependencies": {
-    "@supabase/supabase-js": "^2.116.0"
+    "pg": "8.16.3"
   }
 }
