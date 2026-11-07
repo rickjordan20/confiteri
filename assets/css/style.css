@@ -3281,8 +3281,12 @@ body.confession-info-modal-open {
 }
 .step.cover > .intro-actions > .btn-confession-info {
   padding: 14px 18px;
-  text-align: left;
-  justify-content: flex-start;
+  text-align: center;
+  justify-content: center;
+}
+.step.cover > .intro-actions > .btn-confession-info .btn-confession-text {
+  text-align: center;
+  align-items: center;
 }
 .step.cover > .privacy-note {
   box-sizing: border-box;
