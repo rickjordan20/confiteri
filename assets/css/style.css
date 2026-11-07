@@ -3237,3 +3237,64 @@ body.confession-info-modal-open {
   #confiteri-impact .impact-dashboard-grid > .impact-stat:hover { transform: none; }
   #confiteri-impact .impact-detail-panel:not([hidden]) { animation: none; }
 }
+
+/* Capa — hierarquia visual e respiro entre leitura, ação e privacidade */
+.step.cover {
+  --cover-content-width: 760px;
+}
+.step.cover > .eyebrow,
+.step.cover > h1,
+.step.cover > .verse,
+.step.cover > .lead,
+.step.cover > .intro-actions,
+.step.cover > .privacy-note {
+  max-width: var(--cover-content-width);
+}
+.step.cover > .eyebrow { margin-bottom: 12px; }
+.step.cover > h1 { margin: 0 0 24px; }
+.step.cover > .verse {
+  margin: 0 0 24px;
+  padding: 5px 0 5px 16px;
+  line-height: 1.6;
+}
+.step.cover > .verse cite { margin-top: 8px; }
+.step.cover > p.lead {
+  margin: 0 0 28px;
+  line-height: 1.7;
+  max-width: min(60ch, var(--cover-content-width));
+}
+.step.cover > .intro-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin: 0 0 28px;
+}
+.step.cover > .intro-actions > .btn {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-height: 54px;
+}
+.step.cover > .intro-actions > .btn.primary {
+  min-height: 56px;
+  justify-content: center;
+}
+.step.cover > .intro-actions > .btn-confession-info {
+  padding: 14px 18px;
+  text-align: left;
+  justify-content: flex-start;
+}
+.step.cover > .privacy-note {
+  box-sizing: border-box;
+  padding: 18px 20px;
+  margin: 0 0 28px;
+  gap: 12px;
+  line-height: 1.6;
+}
+@media (max-width: 640px) {
+  .step.cover > h1 { margin-bottom: 22px; }
+  .step.cover > .verse { margin-bottom: 22px; }
+  .step.cover > p.lead { margin-bottom: 24px; }
+  .step.cover > .intro-actions { gap: 14px; margin-bottom: 26px; }
+  .step.cover > .privacy-note { padding: 16px 18px; margin-bottom: 26px; }
+}
