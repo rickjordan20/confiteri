@@ -9,7 +9,7 @@ export default async function handler(req,res) {
   if(publishName===true&&!safeName) return res.status(400).json({success:false,error:"Informe um nome para autorizar sua publicação."});
   if(publishComment===true&&!safeComment) return res.status(400).json({success:false,error:"Informe um comentário para autorizar sua publicação."});
   await getPool().query(
-   "INSERT INTO public.reviews (rating,name,comment,publish_comment,publish_name,approved) VALUES ($1,$2,$3,$4,$5,FALSE)",
+   "INSERT INTO public.reviews (rating,name,comment,publish_comment,publish_name,approved) VALUES ($1,$2,$3,$4,$5,$4)",
    [n,safeName||null,safeComment||null,publishComment===true,publishName===true]
   );
   return res.status(200).json({success:true});
