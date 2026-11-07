@@ -3116,3 +3116,17 @@ body.confession-info-modal-open {
   }
 
 }
+/* Painel expansível de países alcançados */
+.impact-countries-trigger { cursor: pointer; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; }
+.impact-countries-trigger:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; border-radius: 10px; }
+.impact-countries-panel { padding: 18px 4px 6px; border-bottom: 1px solid var(--card-border); }
+.impact-countries-panel[hidden] { display: none !important; }
+.impact-countries-heading { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 5px 16px; margin-bottom: 15px; }
+.impact-countries-heading strong { color: var(--ink); font-size: 14px; }
+.impact-countries-heading span { color: var(--muted); font-size: 11px; }
+.impact-countries-list { display: grid; gap: 13px; color: var(--muted); font-size: 12px; }
+.impact-country-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; align-items: center; }
+.impact-country-row > span:first-child { color: var(--ink); }
+.impact-country-track { grid-column: 1 / -1; height: 5px; border-radius: 8px; background: var(--card-border); overflow: hidden; }
+.impact-country-fill { height: 100%; border-radius: inherit; background: #b99860; }
+@media (max-width: 430px) { .impact-countries-heading { flex-direction: column; } }
