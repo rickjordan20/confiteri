@@ -160,34 +160,34 @@
           </div>
 
           <div class="impact-dashboard-grid">
-            <div class="impact-stat">
+            <button class="impact-stat impact-stat-button impact-stat-detail" type="button" data-impact-detail="visits" aria-expanded="false" aria-controls="impact-detail-panel">
               <div class="impact-stat-icon impact-icon-visits" aria-hidden="true">👥</div>
               <div class="impact-stat-content">
                 <strong id="stat-visits">—</strong>
                 <span>visitas</span>
               </div>
-            </div>
+            </button>
 
-            <div class="impact-stat">
+            <button class="impact-stat impact-stat-button impact-stat-detail" type="button" data-impact-detail="confessions" aria-expanded="false" aria-controls="impact-detail-panel">
               <div class="impact-stat-icon impact-icon-confessions" aria-hidden="true">✝</div>
               <div class="impact-stat-content">
                 <strong id="stat-confessions">—</strong>
                 <span>confissões registradas</span>
               </div>
-            </div>
+            </button>
 
             <button class="impact-stat impact-stat-button impact-countries-trigger" type="button"
-              id="toggle-countries" aria-expanded="false" aria-controls="impact-countries-panel"
+              id="toggle-countries" aria-expanded="false" aria-controls="impact-detail-panel"
               aria-label="Ver países alcançados pelo Confiteri">
               <div class="impact-stat-icon impact-icon-countries" aria-hidden="true">🌎</div>
               <div class="impact-stat-content">
                 <strong id="stat-countries">—</strong>
-                <span>países alcançados <span aria-hidden="true">⌄</span></span>
+                <span>países alcançados</span>
               </div>
             </button>
 
-            <button class="impact-stat impact-stat-button" type="button" id="open-testimonials-modal"
-              aria-label="Ver avaliações do Confiteri">
+            <button class="impact-stat impact-stat-button" type="button" data-impact-detail="rating" aria-expanded="false" aria-controls="impact-detail-panel"
+              aria-label="Ver detalhes das avaliações do Confiteri">
               <div class="impact-stat-icon impact-icon-rating" aria-hidden="true">★</div>
               <div class="impact-stat-content">
                 <strong id="stat-rating">—</strong>
@@ -196,15 +196,16 @@
             </button>
           </div>
 
-          <div class="impact-countries-panel" id="impact-countries-panel" hidden>
-            <div class="impact-countries-heading">
-              <strong>Nossa presença pelo mundo</strong>
-              <span>Visitas por país, sem identificar visitantes.</span>
+          <section class="impact-detail-panel" id="impact-detail-panel" aria-live="polite" hidden>
+            <div class="impact-detail-heading">
+              <div>
+                <strong id="impact-detail-title"></strong>
+                <p id="impact-detail-description"></p>
+              </div>
+              <button type="button" id="impact-detail-close" class="impact-detail-close" aria-label="Fechar detalhes">×</button>
             </div>
-            <div id="impact-countries-list" class="impact-countries-list" aria-live="polite">
-              Selecione o indicador para carregar os países.
-            </div>
-          </div>
+            <div id="impact-detail-content"></div>
+          </section>
 
           <div class="impact-dashboard-bottom">
             <span class="impact-privacy">
