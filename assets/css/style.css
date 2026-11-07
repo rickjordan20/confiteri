@@ -3116,3 +3116,124 @@ body.confession-info-modal-open {
   }
 
 }
+/* Painel expansível de países alcançados */
+.impact-countries-trigger { cursor: pointer; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; }
+.impact-countries-trigger:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; border-radius: 10px; }
+.impact-countries-panel { padding: 18px 4px 6px; border-bottom: 1px solid var(--card-border); }
+.impact-countries-panel[hidden] { display: none !important; }
+.impact-countries-heading { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 5px 16px; margin-bottom: 15px; }
+.impact-countries-heading strong { color: var(--ink); font-size: 14px; }
+.impact-countries-heading span { color: var(--muted); font-size: 11px; }
+.impact-countries-list { display: grid; gap: 13px; color: var(--muted); font-size: 12px; }
+.impact-country-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; align-items: center; }
+.impact-country-row > span:first-child { color: var(--ink); }
+.impact-country-track { grid-column: 1 / -1; height: 5px; border-radius: 8px; background: var(--card-border); overflow: hidden; }
+.impact-country-fill { height: 100%; border-radius: inherit; background: #b99860; }
+@media (max-width: 430px) { .impact-countries-heading { flex-direction: column; } }
+
+/* Alinhamento uniforme dos quatro indicadores e painel compartilhado */
+.impact-dashboard-grid { align-items: stretch; }
+.impact-dashboard-grid > .impact-stat {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 11px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.impact-dashboard-grid > .impact-stat:first-child { padding-left: 8px; }
+.impact-dashboard-grid > .impact-stat:last-child { padding-right: 8px; }
+.impact-dashboard-grid > .impact-stat .impact-stat-icon { flex-shrink: 0; }
+.impact-dashboard-grid > .impact-stat .impact-stat-content { flex: 1 1 0; min-width: 0; }
+.impact-dashboard-grid > .impact-stat .impact-stat-content span { overflow-wrap: normal; }
+.impact-dashboard-grid > .impact-stat:hover,
+.impact-dashboard-grid > .impact-stat[aria-expanded="true"] {
+  background: var(--surface-soft);
+}
+.impact-dashboard-grid > .impact-stat:focus-visible { outline: 2px solid var(--wine); outline-offset: -3px; border-radius: 9px; }
+.impact-detail-panel { padding: 18px 6px; border-bottom: 1px solid var(--card-border); }
+.impact-detail-panel[hidden] { display: none !important; }
+.impact-detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.impact-detail-heading strong { color: var(--ink); font-size: 15px; }
+.impact-detail-heading p, .impact-detail-note { margin: 6px 0 12px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.impact-detail-close { border: 1px solid var(--card-border); background: transparent; color: var(--ink); border-radius: 50%; width: 30px; height: 30px; font-size: 20px; cursor: pointer; flex-shrink: 0; }
+@media (max-width: 760px) {
+  .impact-dashboard-grid > .impact-stat { min-height: 84px; padding: 12px 10px; }
+  .impact-dashboard-grid > .impact-stat:first-child { padding-left: 10px; }
+  .impact-dashboard-grid > .impact-stat:last-child { padding-right: 10px; }
+}
+@media (max-width: 430px) {
+  .impact-dashboard-grid > .impact-stat { gap: 8px; }
+  .impact-dashboard-grid > .impact-stat .impact-stat-content span { font-size: 10px; }
+}
+
+/* Frutos do Confiteri — cartões interativos refinados */
+#confiteri-impact .impact-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  align-items: stretch;
+}
+#confiteri-impact .impact-dashboard-grid > .impact-stat {
+  min-width: 0;
+  min-height: 96px;
+  padding: 13px 10px;
+  border: 1px solid rgba(185, 152, 96, .17);
+  border-radius: 12px;
+  background: rgba(155, 116, 83, .045);
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+#confiteri-impact .impact-dashboard-grid > .impact-stat:first-child,
+#confiteri-impact .impact-dashboard-grid > .impact-stat:last-child { padding: 13px 10px; }
+#confiteri-impact .impact-dashboard-grid > .impact-stat:hover {
+  border-color: rgba(185, 152, 96, .42);
+  background: rgba(185, 152, 96, .09);
+  transform: translateY(-2px);
+}
+#confiteri-impact .impact-dashboard-grid > .impact-stat[aria-expanded="true"] {
+  border-color: #b99860;
+  background: rgba(185, 152, 96, .13);
+  box-shadow: inset 0 0 0 1px rgba(185, 152, 96, .1);
+}
+#confiteri-impact .impact-dashboard-grid > .impact-stat .impact-stat-content { min-width: 0; }
+#confiteri-impact .impact-dashboard-grid > .impact-stat .impact-stat-content span {
+  display: block;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+#confiteri-impact .impact-detail-panel:not([hidden]) {
+  margin-top: 12px;
+  padding: 17px;
+  border: 1px solid rgba(185, 152, 96, .24);
+  border-radius: 12px;
+  background: rgba(155, 116, 83, .055);
+  animation: impact-reveal .22s ease-out both;
+}
+@keyframes impact-reveal {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 700px) {
+  #confiteri-impact .impact-dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #confiteri-impact .impact-dashboard-grid > .impact-stat { min-height: 90px; }
+}
+@media (max-width: 360px) {
+  #confiteri-impact .impact-dashboard-grid > .impact-stat { gap: 7px; padding: 10px 7px; }
+  #confiteri-impact .impact-dashboard-grid > .impact-stat:first-child,
+  #confiteri-impact .impact-dashboard-grid > .impact-stat:last-child { padding: 10px 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #confiteri-impact .impact-dashboard-grid > .impact-stat { transition: none; }
+  #confiteri-impact .impact-dashboard-grid > .impact-stat:hover { transform: none; }
+  #confiteri-impact .impact-detail-panel:not([hidden]) { animation: none; }
+}

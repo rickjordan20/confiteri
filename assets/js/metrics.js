@@ -368,6 +368,110 @@ function animateText(element, value) {
   }, 100);
 }
 
+
+// Painel de países: consulta somente totais agregados do servidor.
+function initializeImpactDetails() {
+  const panel = document.getElementById("impact-detail-panel");
+  const title = document.getElementById("impact-detail-title");
+  const description = document.getElementById("impact-detail-description");
+  const content = document.getElementById("impact-detail-content");
+  const buttons = [...document.querySelectorAll("[data-impact-detail], #toggle-countries")];
+  if (!panel || !title || !description || !content) return;
+
+  const details = {
+    visits: ["Visitas ao Confiteri", "Total de acessos registrados ao site. Não representa pessoas únicas.", "As visitas são contabilizadas de forma agregada, sem acessar respostas do exame de consciência."],
+    confessions: ["Confissões registradas", "Registros voluntários feitos por visitantes após a Confissão.", "O contador representa apenas confirmações voluntárias. Nenhum pecado ou resposta do exame é enviado ao servidor."],
+    rating: ["Avaliações do Confiteri", "Opiniões compartilhadas voluntariamente pelos visitantes.", "As avaliações ajudam a melhorar o Confiteri."]
+  };
+  let countriesLoaded = false;
+  let countryRows = [];
+  const names = new Intl.DisplayNames(["pt-BR"], { type: "region" });
+
+  function close() {
+    panel.hidden = true;
+    buttons.forEach(button => button.setAttribute("aria-expanded", "false"));
+  }
+
+  async function showCountries() {
+    content.textContent = "Carregando países...";
+    try {
+      if (!countriesLoaded) {
+        const response = await fetch("/api/countries", { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (!data.success || !Array.isArray(data.countries)) throw new Error("Resposta inválida");
+        countryRows = data.countries;
+        countriesLoaded = true;
+      }
+      content.replaceChildren();
+      if (!countryRows.length) {
+        content.textContent = "Ainda não há países identificados.";
+        return;
+      }
+      const total = countryRows.reduce((sum, item) => sum + Math.max(0, Number(item.visits) || 0), 0);
+      const list = document.createElement("div");
+      list.className = "impact-countries-list";
+      for (const item of countryRows) {
+        const code = String(item.code || "").toUpperCase();
+        if (!/^[A-Z]{2}$/.test(code)) continue;
+        const count = Math.max(0, Number(item.visits) || 0);
+        const flag = [...code].map(letter => String.fromCodePoint(letter.charCodeAt(0) + 127397)).join("");
+        const row = document.createElement("div");
+        row.className = "impact-country-row";
+        const label = document.createElement("span");
+        label.textContent = `${flag} ${names.of(code) || code}`;
+        const value = document.createElement("span");
+        value.textContent = `${count.toLocaleString("pt-BR")} ${count === 1 ? "visita" : "visitas"}`;
+        const track = document.createElement("div");
+        track.className = "impact-country-track";
+        const fill = document.createElement("div");
+        fill.className = "impact-country-fill";
+        fill.style.width = `${total ? (count / total) * 100 : 0}%`;
+        track.append(fill);
+        row.append(label, value, track);
+        list.append(row);
+      }
+      content.append(list);
+    } catch (error) {
+      console.error("Confiteri: erro ao carregar países.", error);
+      content.textContent = "Não foi possível carregar os países. Feche e abra novamente para tentar.";
+    }
+  }
+
+  buttons.forEach(button => button.addEventListener("click", () => {
+    const type = button.id === "toggle-countries" ? "countries" : button.dataset.impactDetail;
+    if (!panel.hidden && button.getAttribute("aria-expanded") === "true") {
+      close();
+      return;
+    }
+    buttons.forEach(other => other.setAttribute("aria-expanded", String(other === button)));
+    panel.hidden = false;
+    content.replaceChildren();
+    if (type === "countries") {
+      title.textContent = "Nossa presença pelo mundo";
+      description.textContent = "Visitas por país, sem identificar visitantes.";
+      void showCountries();
+      return;
+    }
+    const [heading, subtitle, body] = details[type] || details.visits;
+    title.textContent = heading;
+    description.textContent = subtitle;
+    const paragraph = document.createElement("p");
+    paragraph.className = "impact-detail-note";
+    paragraph.textContent = body;
+    content.append(paragraph);
+    if (type === "rating") {
+      const link = document.createElement("button");
+      link.type = "button";
+      link.className = "impact-reviews-btn";
+      link.textContent = "★ Ver avaliações";
+      link.addEventListener("click", openTestimonialsModal);
+      content.append(link);
+    }
+  }));
+  document.getElementById("impact-detail-close")?.addEventListener("click", close);
+}
+
 /* =========================================================
    AVALIAÇÕES PÚBLICAS
    ========================================================= */
@@ -496,7 +600,6 @@ function initializeFeedbackModals() {
     ?.addEventListener("click", () => openFeedbackModal(reviewModal));
 
   [
-    document.getElementById("open-testimonials-modal"),
     document.getElementById("open-testimonials-button")
   ]
     .filter(Boolean)
@@ -574,6 +677,7 @@ document.addEventListener("DOMContentLoaded", () => {
   registerVisit();
   initializeFeedbackArea();
   initializeFeedbackModals();
+  initializeImpactDetails();
   loadPublicStats();
   loadPublicTestimonials();
 });
