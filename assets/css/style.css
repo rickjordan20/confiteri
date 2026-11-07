@@ -3176,3 +3176,64 @@ body.confession-info-modal-open {
   .impact-dashboard-grid > .impact-stat { gap: 8px; }
   .impact-dashboard-grid > .impact-stat .impact-stat-content span { font-size: 10px; }
 }
+
+/* Frutos do Confiteri — cartões interativos refinados */
+#confiteri-impact .impact-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  align-items: stretch;
+}
+#confiteri-impact .impact-dashboard-grid > .impact-stat {
+  min-width: 0;
+  min-height: 96px;
+  padding: 13px 10px;
+  border: 1px solid rgba(185, 152, 96, .17);
+  border-radius: 12px;
+  background: rgba(155, 116, 83, .045);
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+#confiteri-impact .impact-dashboard-grid > .impact-stat:first-child,
+#confiteri-impact .impact-dashboard-grid > .impact-stat:last-child { padding: 13px 10px; }
+#confiteri-impact .impact-dashboard-grid > .impact-stat:hover {
+  border-color: rgba(185, 152, 96, .42);
+  background: rgba(185, 152, 96, .09);
+  transform: translateY(-2px);
+}
+#confiteri-impact .impact-dashboard-grid > .impact-stat[aria-expanded="true"] {
+  border-color: #b99860;
+  background: rgba(185, 152, 96, .13);
+  box-shadow: inset 0 0 0 1px rgba(185, 152, 96, .1);
+}
+#confiteri-impact .impact-dashboard-grid > .impact-stat .impact-stat-content { min-width: 0; }
+#confiteri-impact .impact-dashboard-grid > .impact-stat .impact-stat-content span {
+  display: block;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+#confiteri-impact .impact-detail-panel:not([hidden]) {
+  margin-top: 12px;
+  padding: 17px;
+  border: 1px solid rgba(185, 152, 96, .24);
+  border-radius: 12px;
+  background: rgba(155, 116, 83, .055);
+  animation: impact-reveal .22s ease-out both;
+}
+@keyframes impact-reveal {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 700px) {
+  #confiteri-impact .impact-dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #confiteri-impact .impact-dashboard-grid > .impact-stat { min-height: 90px; }
+}
+@media (max-width: 360px) {
+  #confiteri-impact .impact-dashboard-grid > .impact-stat { gap: 7px; padding: 10px 7px; }
+  #confiteri-impact .impact-dashboard-grid > .impact-stat:first-child,
+  #confiteri-impact .impact-dashboard-grid > .impact-stat:last-child { padding: 10px 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #confiteri-impact .impact-dashboard-grid > .impact-stat { transition: none; }
+  #confiteri-impact .impact-dashboard-grid > .impact-stat:hover { transform: none; }
+  #confiteri-impact .impact-detail-panel:not([hidden]) { animation: none; }
+}
