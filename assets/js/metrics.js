@@ -368,6 +368,64 @@ function animateText(element, value) {
   }, 100);
 }
 
+
+// Painel de países: consulta somente totais agregados do servidor.
+function initializeCountriesPanel() {
+  const trigger = document.getElementById("toggle-countries");
+  const panel = document.getElementById("impact-countries-panel");
+  const list = document.getElementById("impact-countries-list");
+  if (!trigger || !panel || !list) return;
+
+  let loaded = false;
+  const names = new Intl.DisplayNames(["pt-BR"], { type: "region" });
+
+  trigger.addEventListener("click", async () => {
+    const opening = panel.hidden;
+    panel.hidden = !opening;
+    trigger.setAttribute("aria-expanded", String(opening));
+    if (!opening || loaded) return;
+
+    list.textContent = "Carregando países...";
+    try {
+      const response = await fetch("/api/countries", { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      if (!data.success || !Array.isArray(data.countries)) throw new Error("Resposta inválida");
+      loaded = true;
+      list.replaceChildren();
+      if (!data.countries.length) {
+        list.textContent = "Ainda não há países identificados.";
+        return;
+      }
+      const total = data.countries.reduce((sum, item) => sum + Number(item.visits || 0), 0);
+      for (const item of data.countries) {
+        const code = String(item.code || "").toUpperCase();
+        if (!/^[A-Z]{2}$/.test(code)) continue;
+        const count = Math.max(0, Number(item.visits) || 0);
+        const name = names.of(code) || code;
+        const flag = [...code].map(letter => String.fromCodePoint(letter.charCodeAt(0) + 127397)).join("");
+        const row = document.createElement("div");
+        row.className = "impact-country-row";
+        const label = document.createElement("span");
+        label.textContent = `${flag} ${name}`;
+        const value = document.createElement("span");
+        value.textContent = `${count.toLocaleString("pt-BR")} ${count === 1 ? "visita" : "visitas"}`;
+        const bar = document.createElement("div");
+        bar.className = "impact-country-track";
+        const fill = document.createElement("div");
+        fill.className = "impact-country-fill";
+        fill.style.width = `${total ? (count / total) * 100 : 0}%`;
+        bar.append(fill);
+        row.append(label, value, bar);
+        list.append(row);
+      }
+    } catch (error) {
+      console.error("Confiteri: erro ao carregar países.", error);
+      list.textContent = "Não foi possível carregar os países. Feche e abra novamente para tentar.";
+    }
+  });
+}
+
 /* =========================================================
    AVALIAÇÕES PÚBLICAS
    ========================================================= */
@@ -574,6 +632,7 @@ document.addEventListener("DOMContentLoaded", () => {
   registerVisit();
   initializeFeedbackArea();
   initializeFeedbackModals();
+  initializeCountriesPanel();
   loadPublicStats();
   loadPublicTestimonials();
 });
