@@ -3302,3 +3302,102 @@ body.confession-info-modal-open {
   .step.cover > .intro-actions { gap: 14px; margin-bottom: 26px; }
   .step.cover > .privacy-note { padding: 16px 18px; margin-bottom: 26px; }
 }
+
+/* Capa — ações com estética sacra contemporânea: vinho, ouro e linhas discretas */
+.step.cover > .intro-actions {
+  gap: 16px;
+}
+.step.cover > .intro-actions > .btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  min-height: 66px;
+  font-size: 14px;
+  letter-spacing: .01em;
+  line-height: 1.35;
+  transition: transform .2s ease, border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.step.cover > .intro-actions > .btn.primary {
+  min-height: 68px;
+  gap: 12px;
+  padding: 17px 22px;
+  color: #fff9f6;
+  background: linear-gradient(135deg, #8e3049 0%, #a63d58 55%, #7b283f 100%);
+  border: 1px solid rgba(238, 183, 169, .38);
+  box-shadow: 0 8px 24px rgba(55, 12, 27, .16), inset 0 1px 0 rgba(255,255,255,.13);
+  font-weight: 700;
+}
+.step.cover > .intro-actions > .btn.primary .cover-cta-symbol {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 235, 213, .45);
+  border-radius: 9px;
+  color: #f5d6a4;
+  background: rgba(36, 8, 17, .16);
+  font-size: 19px;
+  line-height: 1;
+}
+.step.cover > .intro-actions > .btn.primary:hover {
+  background: linear-gradient(135deg, #9d3652 0%, #b54964 55%, #8c3049 100%);
+  box-shadow: 0 11px 28px rgba(55, 12, 27, .23), inset 0 1px 0 rgba(255,255,255,.15);
+  transform: translateY(-2px);
+}
+.step.cover > .intro-actions > .btn-confession-info {
+  min-height: 72px;
+  padding: 15px 20px;
+  gap: 13px;
+  border: 1px solid rgba(185, 152, 96, .38);
+  background: linear-gradient(135deg, rgba(185,152,96,.09), rgba(161,49,78,.07));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+  color: var(--ink);
+}
+.step.cover > .intro-actions > .btn-confession-info .btn-confession-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(156, 66, 86, .18);
+  border: 1px solid rgba(181, 87, 108, .38);
+  color: #d7a3ad;
+  font-size: 19px;
+}
+.step.cover > .intro-actions > .btn-confession-info .btn-confession-text {
+  gap: 4px;
+  min-width: 0;
+}
+.step.cover > .intro-actions > .btn-confession-info .btn-confession-text strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+.step.cover > .intro-actions > .btn-confession-info .btn-confession-text small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+.step.cover > .intro-actions > .btn-confession-info:hover {
+  border-color: rgba(185,152,96,.7);
+  background: linear-gradient(135deg, rgba(185,152,96,.15), rgba(161,49,78,.11));
+  box-shadow: 0 7px 20px rgba(0,0,0,.09);
+  transform: translateY(-2px);
+}
+.step.cover > .intro-actions > .btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+[data-theme="light"] .step.cover > .intro-actions > .btn-confession-info .btn-confession-icon {
+  color: #87354b;
+  background: rgba(161,49,78,.09);
+}
+@media (max-width: 640px) {
+  .step.cover > .intro-actions > .btn.primary { min-height: 62px; padding: 14px 12px; }
+  .step.cover > .intro-actions > .btn-confession-info { min-height: 68px; padding: 13px 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step.cover > .intro-actions > .btn { transition: none; }
+  .step.cover > .intro-actions > .btn:hover { transform: none; }
+}
