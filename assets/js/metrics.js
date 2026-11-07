@@ -314,14 +314,14 @@ async function loadPublicStats() {
 
       if (ratingLabel) {
         ratingLabel.textContent =
-          `${reviewCount} ${reviewCount === 1 ? "avaliação" : "avaliações"}`;
+          `${reviewCount} ${reviewCount === 1 ? "avaliação recebida" : "avaliações recebidas"}`;
       }
 
       if (testimonialsAverage) testimonialsAverage.textContent = rating;
 
       if (testimonialsTotal) {
         testimonialsTotal.textContent =
-          `${reviewCount} ${reviewCount === 1 ? "avaliação" : "avaliações"}`;
+          `${reviewCount} ${reviewCount === 1 ? "avaliação recebida" : "avaliações recebidas"}`;
       }
     } else {
       if (ratingElement) ratingElement.textContent = "—";
@@ -562,20 +562,31 @@ function renderTestimonials(reviews = []) {
    MODAIS
    ========================================================= */
 
+let previousModalFocus = null;
+
 function setPageModalState(open) {
   document.body.style.overflow = open ? "hidden" : "";
 }
 
 function openFeedbackModal(modal) {
   if (!modal) return;
+  const otherOpen = document.querySelector(".feedback-modal:not([hidden])");
+  if (otherOpen && otherOpen !== modal) otherOpen.hidden = true;
+  if (!otherOpen) previousModalFocus = document.activeElement;
   modal.hidden = false;
   setPageModalState(true);
+  modal.querySelector(".feedback-modal-close, button, input, select")?.focus();
 }
 
-function closeFeedbackModal(modal) {
+function closeFeedbackModal(modal, restoreFocus = true) {
   if (!modal) return;
   modal.hidden = true;
-  setPageModalState(false);
+  const stillOpen = document.querySelector(".feedback-modal:not([hidden])");
+  setPageModalState(Boolean(stillOpen));
+  if (!stillOpen && restoreFocus) {
+    previousModalFocus?.focus?.();
+    previousModalFocus = null;
+  }
 }
 
 function openTestimonialsModal() {
@@ -591,58 +602,30 @@ function initializeFeedbackModals() {
   const reviewModal = document.getElementById("review-modal");
   const testimonialsModal = document.getElementById("testimonials-modal");
 
-  document
-    .getElementById("open-confession-modal")
+  document.getElementById("open-confession-modal")
     ?.addEventListener("click", () => openFeedbackModal(confessionModal));
-
-  document
-    .getElementById("open-review-modal")
+  document.getElementById("open-review-modal")
     ?.addEventListener("click", () => openFeedbackModal(reviewModal));
+  document.getElementById("open-testimonials-button")
+    ?.addEventListener("click", openTestimonialsModal);
 
-  [
-    document.getElementById("open-testimonials-button")
-  ]
-    .filter(Boolean)
-    .forEach(button => {
-      button.addEventListener("click", openTestimonialsModal);
-    });
-
-  document.querySelectorAll("[data-close-feedback-modal]")
+  document.querySelectorAll("[data-close-feedback-modal], [data-close-testimonials-modal]")
     .forEach(element => {
       element.addEventListener("click", () => {
         closeFeedbackModal(element.closest(".feedback-modal"));
       });
     });
 
-  testimonialsModal
-    ?.querySelectorAll("[data-close-testimonials-modal]")
-    .forEach(element => {
-      element.addEventListener("click", closeTestimonialsModal);
-    });
-
-  document
-    .getElementById("testimonials-review-button")
+  document.getElementById("testimonials-review-button")
     ?.addEventListener("click", () => {
-      closeTestimonialsModal();
+      closeFeedbackModal(testimonialsModal, false);
       openFeedbackModal(reviewModal);
     });
 
   document.addEventListener("keydown", event => {
     if (event.key !== "Escape") return;
-
-    if (testimonialsModal && !testimonialsModal.hidden) {
-      closeTestimonialsModal();
-      return;
-    }
-
-    if (confessionModal && !confessionModal.hidden) {
-      closeFeedbackModal(confessionModal);
-      return;
-    }
-
-    if (reviewModal && !reviewModal.hidden) {
-      closeFeedbackModal(reviewModal);
-    }
+    const active = document.querySelector(".feedback-modal:not([hidden])");
+    if (active) closeFeedbackModal(active);
   });
 }
 
