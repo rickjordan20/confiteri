@@ -1998,7 +1998,7 @@
       <div class="testimonials-head">
         <span class="testimonials-kicker">★ Experiências com o Confiteri</span>
         <h2 id="testimonials-modal-title">O que dizem sobre o Confiteri</h2>
-        <p>Avaliações e comentários enviados voluntariamente por pessoas que utilizaram ou testaram a plataforma.</p>
+        <p>A média considera as avaliações recebidas. Abaixo são exibidos apenas comentários autorizados e aprovados.</p>
       </div>
 
       <div class="testimonials-summary">
@@ -2037,40 +2037,6 @@
       });
     });
 
-    // Modal público de avaliações
-    const testimonialsModal = document.getElementById("testimonials-modal");
-    const testimonialsOpeners = [
-      document.getElementById("open-testimonials-modal"),
-      document.getElementById("open-testimonials-button")
-    ].filter(Boolean);
-
-    function openTestimonialsModal() {
-      if (!testimonialsModal) return;
-      testimonialsModal.hidden = false;
-      document.body.classList.add("feedback-modal-open");
-    }
-
-    function closeTestimonialsModal() {
-      if (!testimonialsModal) return;
-      testimonialsModal.hidden = true;
-      document.body.classList.remove("feedback-modal-open");
-    }
-
-    testimonialsOpeners.forEach((button) => button.addEventListener("click", openTestimonialsModal));
-    document.querySelectorAll("[data-close-testimonials-modal]").forEach((button) =>
-      button.addEventListener("click", closeTestimonialsModal)
-    );
-
-    document.getElementById("testimonials-review-button")?.addEventListener("click", () => {
-      closeTestimonialsModal();
-      document.getElementById("open-review-modal")?.click();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && testimonialsModal && !testimonialsModal.hidden) {
-        closeTestimonialsModal();
-      }
-    });
   </script>
 
   <!-- =========================================================
