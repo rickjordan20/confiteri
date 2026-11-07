@@ -3130,3 +3130,49 @@ body.confession-info-modal-open {
 .impact-country-track { grid-column: 1 / -1; height: 5px; border-radius: 8px; background: var(--card-border); overflow: hidden; }
 .impact-country-fill { height: 100%; border-radius: inherit; background: #b99860; }
 @media (max-width: 430px) { .impact-countries-heading { flex-direction: column; } }
+
+/* Alinhamento uniforme dos quatro indicadores e painel compartilhado */
+.impact-dashboard-grid { align-items: stretch; }
+.impact-dashboard-grid > .impact-stat {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 11px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.impact-dashboard-grid > .impact-stat:first-child { padding-left: 8px; }
+.impact-dashboard-grid > .impact-stat:last-child { padding-right: 8px; }
+.impact-dashboard-grid > .impact-stat .impact-stat-icon { flex-shrink: 0; }
+.impact-dashboard-grid > .impact-stat .impact-stat-content { flex: 1 1 0; min-width: 0; }
+.impact-dashboard-grid > .impact-stat .impact-stat-content span { overflow-wrap: normal; }
+.impact-dashboard-grid > .impact-stat:hover,
+.impact-dashboard-grid > .impact-stat[aria-expanded="true"] {
+  background: var(--surface-soft);
+}
+.impact-dashboard-grid > .impact-stat:focus-visible { outline: 2px solid var(--wine); outline-offset: -3px; border-radius: 9px; }
+.impact-detail-panel { padding: 18px 6px; border-bottom: 1px solid var(--card-border); }
+.impact-detail-panel[hidden] { display: none !important; }
+.impact-detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.impact-detail-heading strong { color: var(--ink); font-size: 15px; }
+.impact-detail-heading p, .impact-detail-note { margin: 6px 0 12px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.impact-detail-close { border: 1px solid var(--card-border); background: transparent; color: var(--ink); border-radius: 50%; width: 30px; height: 30px; font-size: 20px; cursor: pointer; flex-shrink: 0; }
+@media (max-width: 760px) {
+  .impact-dashboard-grid > .impact-stat { min-height: 84px; padding: 12px 10px; }
+  .impact-dashboard-grid > .impact-stat:first-child { padding-left: 10px; }
+  .impact-dashboard-grid > .impact-stat:last-child { padding-right: 10px; }
+}
+@media (max-width: 430px) {
+  .impact-dashboard-grid > .impact-stat { gap: 8px; }
+  .impact-dashboard-grid > .impact-stat .impact-stat-content span { font-size: 10px; }
+}
