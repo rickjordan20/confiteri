@@ -176,13 +176,15 @@
               </div>
             </div>
 
-            <div class="impact-stat">
+            <button class="impact-stat impact-stat-button impact-countries-trigger" type="button"
+              id="toggle-countries" aria-expanded="false" aria-controls="impact-countries-panel"
+              aria-label="Ver países alcançados pelo Confiteri">
               <div class="impact-stat-icon impact-icon-countries" aria-hidden="true">🌎</div>
               <div class="impact-stat-content">
                 <strong id="stat-countries">—</strong>
-                <span>países alcançados</span>
+                <span>países alcançados <span aria-hidden="true">⌄</span></span>
               </div>
-            </div>
+            </button>
 
             <button class="impact-stat impact-stat-button" type="button" id="open-testimonials-modal"
               aria-label="Ver avaliações do Confiteri">
@@ -192,6 +194,16 @@
                 <span id="stat-rating-label">avaliação média</span>
               </div>
             </button>
+          </div>
+
+          <div class="impact-countries-panel" id="impact-countries-panel" hidden>
+            <div class="impact-countries-heading">
+              <strong>Nossa presença pelo mundo</strong>
+              <span>Visitas por país, sem identificar visitantes.</span>
+            </div>
+            <div id="impact-countries-list" class="impact-countries-list" aria-live="polite">
+              Selecione o indicador para carregar os países.
+            </div>
           </div>
 
           <div class="impact-dashboard-bottom">
